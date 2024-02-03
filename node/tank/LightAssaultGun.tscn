@@ -1,0 +1,66 @@
+[gd_scene load_steps=10 format=3 uid="uid://exqgungqnmbo"]
+
+[ext_resource type="PackedScene" uid="uid://bdr1wr1vu21f4" path="res://node/tank/AbstractTank.tscn" id="1_j3thu"]
+[ext_resource type="Script" path="res://node/tank/LightAssaultGun.gd" id="2_6by8d"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_i51xn"]
+resource_local_to_scene = true
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"Moving",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jdcrc"]
+resource_local_to_scene = true
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"Firing",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t82ja"]
+resource_local_to_scene = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sja7n"]
+resource_local_to_scene = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dn5nc"]
+resource_local_to_scene = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3k6xm"]
+resource_local_to_scene = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_52ikl"]
+resource_local_to_scene = true
+
+[node name="LightAssaultGun" instance=ExtResource("1_j3thu")]
+script = ExtResource("2_6by8d")
+
+[node name="Hull" parent="Tank" index="0"]
+sprite_frames = SubResource("SpriteFrames_i51xn")
+
+[node name="Gun" parent="Tank/Hull" index="0"]
+sprite_frames = SubResource("SpriteFrames_jdcrc")
+
+[node name="CollisionShape2D" parent="Tank/Hull/FrontPlate" index="0"]
+shape = SubResource("RectangleShape2D_t82ja")
+
+[node name="CollisionShape2D" parent="Tank/Hull/LeftPlate" index="0"]
+shape = SubResource("RectangleShape2D_sja7n")
+
+[node name="CollisionShape2D" parent="Tank/Hull/RightPlate" index="0"]
+shape = SubResource("RectangleShape2D_dn5nc")
+
+[node name="CollisionShape2D" parent="Tank/Hull/BackPlate" index="0"]
+shape = SubResource("RectangleShape2D_3k6xm")
+
+[node name="TankCollision" parent="Tank" index="1"]
+shape = SubResource("RectangleShape2D_52ikl")

@@ -1,0 +1,1 @@
+class_name AbstractTank extends Node2D

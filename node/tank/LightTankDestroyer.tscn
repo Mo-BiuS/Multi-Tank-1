@@ -1,0 +1,140 @@
+[gd_scene load_steps=18 format=3 uid="uid://tx778ibjabrp"]
+
+[ext_resource type="PackedScene" uid="uid://bdr1wr1vu21f4" path="res://node/tank/AbstractTank.tscn" id="1_dbsro"]
+[ext_resource type="Script" path="res://node/tank/LightTankDestroyer.gd" id="2_58ikg"]
+[ext_resource type="Texture2D" uid="uid://bptxqpvqmt2bb" path="res://ressources/sprite/Tank_LTD.png" id="3_kgnmu"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rsm4l"]
+atlas = ExtResource("3_kgnmu")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nfm7d"]
+atlas = ExtResource("3_kgnmu")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k68mg"]
+atlas = ExtResource("3_kgnmu")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xjirm"]
+resource_local_to_scene = true
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rsm4l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nfm7d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k68mg")
+}],
+"loop": true,
+"name": &"Moving",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0ctma"]
+atlas = ExtResource("3_kgnmu")
+region = Rect2(0, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ep6st"]
+atlas = ExtResource("3_kgnmu")
+region = Rect2(64, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0juk1"]
+atlas = ExtResource("3_kgnmu")
+region = Rect2(128, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_04bue"]
+atlas = ExtResource("3_kgnmu")
+region = Rect2(0, 128, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4yppl"]
+resource_local_to_scene = true
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0ctma")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ep6st")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0juk1")
+}],
+"loop": true,
+"name": &"Firing",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_04bue")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_no6ny"]
+resource_local_to_scene = true
+size = Vector2(2, 26)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l2lcc"]
+resource_local_to_scene = true
+size = Vector2(32, 2)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w5iv1"]
+resource_local_to_scene = true
+size = Vector2(32, 2)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vlar8"]
+resource_local_to_scene = true
+size = Vector2(2, 26)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3qwvs"]
+resource_local_to_scene = true
+size = Vector2(64, 44)
+
+[node name="LightTankDestroyer" instance=ExtResource("1_dbsro")]
+script = ExtResource("2_58ikg")
+
+[node name="Hull" parent="." index="0"]
+sprite_frames = SubResource("SpriteFrames_xjirm")
+frame_progress = 0.694469
+
+[node name="Gun" parent="Hull" index="0"]
+position = Vector2(9, 1)
+sprite_frames = SubResource("SpriteFrames_4yppl")
+animation = &"Idle"
+offset = Vector2(-10, -1)
+
+[node name="MunSpawn" parent="Hull/Gun" index="0"]
+position = Vector2(23, 0)
+
+[node name="Camera2D" parent="Hull/Gun" index="1"]
+position = Vector2(32, -1)
+
+[node name="Roof" parent="Hull" index="1"]
+texture = ExtResource("3_kgnmu")
+region_enabled = true
+region_rect = Rect2(0, 192, 64, 64)
+
+[node name="CollisionShape2D" parent="Hull/FrontPlate" index="0"]
+position = Vector2(17, 0)
+shape = SubResource("RectangleShape2D_no6ny")
+
+[node name="CollisionShape2D" parent="Hull/LeftPlate" index="0"]
+position = Vector2(0, -12)
+shape = SubResource("RectangleShape2D_l2lcc")
+
+[node name="CollisionShape2D" parent="Hull/RightPlate" index="0"]
+position = Vector2(0, 12)
+shape = SubResource("RectangleShape2D_w5iv1")
+
+[node name="CollisionShape2D" parent="Hull/BackPlate" index="0"]
+position = Vector2(-17, 0)
+shape = SubResource("RectangleShape2D_vlar8")
+
+[node name="TankCollision" parent="." index="1"]
+shape = SubResource("RectangleShape2D_3qwvs")
